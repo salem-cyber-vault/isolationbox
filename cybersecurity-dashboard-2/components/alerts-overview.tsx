@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { AlertTriangle, Filter, MoreHorizontal } from "lucide-react"
+import { useState, useEffect } from "react"
+import { AlertTriangle, Filter, MoreHorizontal, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -16,90 +16,35 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-const alerts = [
-  {
-    id: "ALERT-1234",
-    title: "Critical Vulnerability Detected",
-    source: "Web Server",
-    severity: "Critical",
-    time: "2023-10-31 14:23:45",
-    status: "Open",
-  },
-  {
-    id: "ALERT-1235",
-    title: "Unusual Login Activity",
-    source: "Authentication System",
-    severity: "High",
-    time: "2023-10-31 13:45:22",
-    status: "Investigating",
-  },
-  {
-    id: "ALERT-1236",
-    title: "Malware Detected",
-    source: "Endpoint DEV-45",
-    severity: "High",
-    time: "2023-10-31 12:12:01",
-    status: "Mitigated",
-  },
-  {
-    id: "ALERT-1237",
-    title: "DDoS Attack Attempt",
-    source: "Network Gateway",
-    severity: "Critical",
-    time: "2023-10-31 11:05:33",
-    status: "Open",
-  },
-  {
-    id: "ALERT-1238",
-    title: "Suspicious File Download",
-    source: "Endpoint HR-12",
-    severity: "Medium",
-    time: "2023-10-31 10:45:12",
-    status: "Investigating",
-  },
-  {
-    id: "ALERT-1239",
-    title: "Firewall Rule Violation",
-    source: "Network Firewall",
-    severity: "Medium",
-    time: "2023-10-31 09:30:45",
-    status: "Resolved",
-  },
-  {
-    id: "ALERT-1240",
-    title: "Unauthorized Access Attempt",
-    source: "Database Server",
-    severity: "High",
-    time: "2023-10-31 08:22:18",
-    status: "Mitigated",
-  },
-  {
-    id: "ALERT-1241",
-    title: "System Update Available",
-    source: "Update Server",
-    severity: "Low",
-    time: "2023-10-31 07:15:33",
-    status: "Open",
-  },
-]
+import { fetchAlerts, filterAlerts, type Alert } from "@/lib/api"
 
 export function AlertsOverview() {
   const [searchTerm, setSearchTerm] = useState("")
   const [severityFilter, setSeverityFilter] = useState("All")
   const [statusFilter, setStatusFilter] = useState("All")
+  const [alerts, setAlerts] = useState<Alert[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const filteredAlerts = alerts.filter((alert) => {
-    const matchesSearch =
-      alert.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      alert.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      alert.source.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    async function loadAlerts() {
+      try {
+        setLoading(true)
+        setError(null)
+        const data = await fetchAlerts()
+        setAlerts(data)
+      } catch (err) {
+        setError("Failed to load security alerts")
+        console.error("Error fetching alerts:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    const matchesSeverity = severityFilter === "All" || alert.severity === severityFilter
-    const matchesStatus = statusFilter === "All" || alert.status === statusFilter
+    loadAlerts()
+  }, [])
 
-    return matchesSearch && matchesSeverity && matchesStatus
-  })
+  const filteredAlerts = filterAlerts(alerts, searchTerm, severityFilter, statusFilter)
 
   return (
     <Card>
@@ -159,7 +104,28 @@ export function AlertsOverview() {
         </div>
 
         <div className="rounded-md border">
-          <Table>
+          {loading ? (
+            <div className="flex items-center justify-center h-[300px]">
+              <div className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-sm text-muted-foreground">Loading security alerts...</span>
+              </div>
+            </div>
+          ) : error ? (
+            <div className="flex items-center justify-center h-[300px]">
+              <div className="text-center">
+                <p className="text-sm text-red-500 mb-2">{error}</p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.location.reload()}
+                >
+                  Retry
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">ID</TableHead>
@@ -232,6 +198,7 @@ export function AlertsOverview() {
               ))}
             </TableBody>
           </Table>
+          )}
         </div>
       </CardContent>
     </Card>
