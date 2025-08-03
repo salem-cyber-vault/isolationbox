@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -12,148 +12,62 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { AlertTriangle, ArrowRight, CheckCircle, Clock, Info, ShieldAlert, XCircle, ExternalLink } from "lucide-react"
-
-const events = [
-  {
-    id: 1,
-    type: "alert",
-    title: "Critical vulnerability detected",
-    description: "CVE-2023-1234 found on web server",
-    time: "2 minutes ago",
-    icon: AlertTriangle,
-    iconColor: "text-red-500",
-    details: {
-      severity: "Critical",
-      affectedSystems: ["Web Server 01", "Web Server 02"],
-      cve: "CVE-2023-1234",
-      solution: "Apply security patch immediately",
-      impact: "Remote code execution possible",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-  {
-    id: 2,
-    type: "info",
-    title: "System scan completed",
-    description: "Weekly security scan finished",
-    time: "15 minutes ago",
-    icon: Info,
-    iconColor: "text-blue-500",
-    details: {
-      severity: "Info",
-      affectedSystems: ["All Systems"],
-      scanType: "Full System Scan",
-      findings: "23 vulnerabilities found, 18 patched",
-      duration: "2 hours 34 minutes",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-  {
-    id: 3,
-    type: "warning",
-    title: "Unusual login activity",
-    description: "Multiple failed login attempts from 192.168.1.45",
-    time: "32 minutes ago",
-    icon: ShieldAlert,
-    iconColor: "text-orange-500",
-    details: {
-      severity: "Warning",
-      sourceIP: "192.168.1.45",
-      attempts: "15 failed attempts",
-      targetAccount: "admin@salencybervault.com",
-      action: "IP temporarily blocked",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-  {
-    id: 4,
-    type: "success",
-    title: "Firewall rules updated",
-    description: "New rules applied successfully",
-    time: "1 hour ago",
-    icon: CheckCircle,
-    iconColor: "text-green-500",
-    details: {
-      severity: "Success",
-      rulesAdded: 5,
-      rulesModified: 3,
-      rulesRemoved: 1,
-      appliedTo: "All network segments",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-  {
-    id: 5,
-    type: "alert",
-    title: "Malware detected",
-    description: "Trojan detected and quarantined on endpoint DEV-45",
-    time: "1.5 hours ago",
-    icon: XCircle,
-    iconColor: "text-red-500",
-    details: {
-      severity: "High",
-      malwareType: "Trojan.Win32.Generic",
-      endpoint: "DEV-45 (John's Laptop)",
-      action: "File quarantined and system cleaned",
-      scanRecommended: "Full system scan recommended",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-  {
-    id: 6,
-    type: "info",
-    title: "System update available",
-    description: "Security patch available for 3 systems",
-    time: "2 hours ago",
-    icon: Info,
-    iconColor: "text-blue-500",
-    details: {
-      severity: "Info",
-      updateType: "Security Patch",
-      affectedSystems: ["DB Server", "Mail Server", "File Server"],
-      patchSize: "245 MB",
-      estimatedDowntime: "15 minutes per server",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-  {
-    id: 7,
-    type: "warning",
-    title: "API rate limit reached",
-    description: "External API calls exceeded threshold",
-    time: "3 hours ago",
-    icon: Clock,
-    iconColor: "text-yellow-500",
-    details: {
-      severity: "Warning",
-      apiEndpoint: "threat-intel.api.com",
-      currentUsage: "1,250 calls/hour",
-      limit: "1,000 calls/hour",
-      recommendation: "Upgrade API plan or reduce call frequency",
-      learnMore: "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-1234",
-      mitreAttack: "https://attack.mitre.org/techniques/T1190/",
-      nistGuide: "https://nvd.nist.gov/vuln/detail/CVE-2023-1234",
-    },
-  },
-]
+import { ArrowRight, ExternalLink, Loader2 } from "lucide-react"
+import { fetchEvents, filterEventsByType, type SecurityEvent } from "@/lib/api"
 
 export function RecentEvents() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
+  const [events, setEvents] = useState<SecurityEvent[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const filteredEvents = selectedType ? events.filter((event) => event.type === selectedType) : events
+  useEffect(() => {
+    async function loadEvents() {
+      try {
+        setLoading(true)
+        setError(null)
+        const data = await fetchEvents()
+        setEvents(data)
+      } catch (err) {
+        setError("Failed to load security events")
+        console.error("Error fetching events:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadEvents()
+  }, [])
+
+  const filteredEvents = filterEventsByType(events, selectedType)
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[300px]">
+        <div className="flex items-center gap-2">
+          <Loader2 className="h-4 w-4 animate-spin" />
+          <span className="text-sm text-muted-foreground">Loading recent events...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-[300px]">
+        <div className="text-center">
+          <p className="text-sm text-red-500 mb-2">{error}</p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
