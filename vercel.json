@@ -1,0 +1,1 @@
+{\n  "version": 2,\n  "builds": [\n    {\n      "src": "isolationbox/package.json",\n      "use": "@vercel/next"\n    }\n  ],\n  "routes": [\n    {\n      "src": "/(.*)",\n      "dest": "isolationbox/$1"\n    }\n  ]\n}
