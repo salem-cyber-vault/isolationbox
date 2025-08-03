@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd cybersecurity-dashboard-2 && pnpm run build",
+  "outputDirectory": "cybersecurity-dashboard-2/.next",
+  "installCommand": "cd cybersecurity-dashboard-2 && pnpm install",
+  "devCommand": "cd cybersecurity-dashboard-2 && pnpm run dev",
+  "framework": "nextjs"
+}
