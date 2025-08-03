@@ -22,7 +22,7 @@ export default function DashboardLayout({
       <div className="flex min-h-screen flex-col">
         {/* Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex items-center gap-2 font-semibold text-lg text-orange-500">
+          <div className="flex items-center gap-2 font-semibold text-lg text-blue-500">
             <Shield className="h-6 w-6" />
             <span>Salem Cyber Vault</span>
           </div>

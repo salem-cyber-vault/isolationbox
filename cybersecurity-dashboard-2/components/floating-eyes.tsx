@@ -26,8 +26,8 @@ export function FloatingEyes({ count = 8 }: FloatingEyesProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const eyeTypes = ["nft", "cyber", "glitch", "mystical"] as const
-  const nftColors = ["#00ff88", "#ff6b35", "#f7d794", "#ff3838", "#3742fa", "#2ed573"]
-  const glowColors = ["#00ff88", "#ff6b35", "#f7d794", "#ff3838", "#3742fa", "#2ed573"]
+  const nftColors = ["#3b82f6", "#1d4ed8", "#60a5fa", "#2563eb", "#1e40af", "#93c5fd"]
+  const glowColors = ["#3b82f6", "#1d4ed8", "#60a5fa", "#2563eb", "#1e40af", "#93c5fd"]
   const characters = ["👁️", "🔮", "⚡", "🌟", "💎", "🎭"]
 
   // Generate NFT-style eyes

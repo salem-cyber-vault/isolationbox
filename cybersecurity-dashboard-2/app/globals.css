@@ -121,10 +121,10 @@
     @apply bg-background text-foreground;
     background: linear-gradient(
       135deg,
-      oklch(0.145 0 0) 0%,
-      oklch(0.165 0.05 240) 25%,
-      oklch(0.155 0.03 180) 50%,
-      oklch(0.145 0 0) 100%
+      oklch(0.145 0.02 240) 0%,
+      oklch(0.165 0.08 220) 25%,
+      oklch(0.155 0.06 200) 50%,
+      oklch(0.145 0.02 240) 100%
     );
     min-height: 100vh;
   }
@@ -156,9 +156,9 @@
   animation: glitch 0.3s ease-in-out;
 }
 
-/* Cyber grid background */
+/* Blue-themed cyber grid background */
 .cyber-grid {
-  background-image: linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
 }
