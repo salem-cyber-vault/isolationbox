@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Salem Cyber Vault",
-  description: "Advanced cybersecurity monitoring vault with Halloween theme",
-    generator: 'v0.dev'
+  description: "Advanced cybersecurity monitoring vault with sophisticated API features and threat intelligence",
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({

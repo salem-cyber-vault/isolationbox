@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/dialog"
 
 export const metadata: Metadata = {
-  title: "Dashboard - CyberEye Security",
-  description: "Advanced cybersecurity monitoring dashboard",
+  title: "Dashboard - Salem Cyber Vault",
+  description: "Advanced cybersecurity monitoring dashboard with real-time threat intelligence",
 }
 
 export default function DashboardPage() {
@@ -52,13 +52,13 @@ export default function DashboardPage() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
-                      className="h-4 w-4 text-orange-500"
+                      className="h-4 w-4 text-blue-500"
                     >
                       <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-orange-500">24</div>
+                    <div className="text-2xl font-bold text-blue-500">24</div>
                     <p className="text-xs text-muted-foreground">+12 from yesterday</p>
                   </CardContent>
                 </Card>
@@ -76,7 +76,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-medium">Suspicious Activity</h4>
-                      <p className="text-2xl font-bold text-orange-500">12</p>
+                      <p className="text-2xl font-bold text-blue-500">12</p>
                     </div>
                     <div className="space-y-2">
                       <h4 className="font-medium">Failed Logins</h4>

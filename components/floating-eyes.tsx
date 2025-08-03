@@ -21,13 +21,13 @@ interface FloatingEyesProps {
   count?: number
 }
 
-export function FloatingEyes({ count = 8 }: FloatingEyesProps) {
+export function FloatingEyes({ count = 12 }: FloatingEyesProps) {
   const [eyes, setEyes] = useState<Eye[]>([])
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const eyeTypes = ["nft", "cyber", "glitch", "mystical"] as const
-  const nftColors = ["#00ff88", "#ff6b35", "#f7d794", "#ff3838", "#3742fa", "#2ed573"]
-  const glowColors = ["#00ff88", "#ff6b35", "#f7d794", "#ff3838", "#3742fa", "#2ed573"]
+  const nftColors = ["#3b82f6", "#1e40af", "#1d4ed8", "#2563eb", "#60a5fa", "#93c5fd"]
+  const glowColors = ["#3b82f6", "#1e40af", "#1d4ed8", "#2563eb", "#60a5fa", "#93c5fd"]
   const characters = ["👁️", "🔮", "⚡", "🌟", "💎", "🎭"]
 
   // Generate NFT-style eyes
@@ -126,10 +126,11 @@ function NFTEyeElement({ eye, mousePosition }: NFTEyeElementProps) {
 
   const getEyeStyle = () => {
     return {
-      background: `radial-gradient(circle at 30% 30%, ${eye.eyeColor}20, ${eye.eyeColor}10, transparent 70%)`,
-      border: `1px solid ${eye.eyeColor}30`,
+      background: `radial-gradient(circle at 30% 30%, ${eye.eyeColor}15, ${eye.eyeColor}08, transparent 70%)`,
+      border: `1px solid ${eye.eyeColor}20`,
       borderRadius: "50%",
-      boxShadow: `0 0 10px ${eye.glowColor}20, inset 0 0 5px ${eye.eyeColor}10`,
+      boxShadow: `0 0 8px ${eye.glowColor}15, inset 0 0 3px ${eye.eyeColor}08`,
+      opacity: 0.6,
     }
   }
 

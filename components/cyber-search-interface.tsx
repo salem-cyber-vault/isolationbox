@@ -177,7 +177,7 @@ export function CyberSearchInterface() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Globe className="h-5 w-5 text-orange-500" />🌍 Real Internet Device Discovery
+            <Globe className="h-5 w-5 text-blue-500" />🌍 Real Internet Device Discovery
           </CardTitle>
           <CardDescription>
             Search and explore real websites, servers, and devices around the world using authentic Russian and
@@ -197,7 +197,7 @@ export function CyberSearchInterface() {
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               />
             </div>
-            <Button onClick={handleSearch} className="bg-orange-500 hover:bg-orange-600">
+            <Button onClick={handleSearch} className="bg-blue-500 hover:bg-blue-600">
               <Search className="h-4 w-4 mr-2" />🔍 Explore
             </Button>
             <Button variant="outline" onClick={() => setShowAdvanced(!showAdvanced)}>
@@ -267,7 +267,7 @@ export function CyberSearchInterface() {
                   }
                 >
                   <div className="flex items-center gap-3">
-                    <suggestion.icon className="h-4 w-4 text-orange-500" />
+                    <suggestion.icon className="h-4 w-4 text-blue-500" />
                     <div>
                       <p className="font-medium text-sm">{suggestion.query}</p>
                       <p className="text-xs text-muted-foreground">{suggestion.description}</p>
@@ -332,7 +332,7 @@ export function CyberSearchInterface() {
               className="text-center p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer"
               onClick={() => window.open("https://yandex.ru", "_blank")}
             >
-              <div className="text-2xl font-bold text-orange-500">150M+</div>
+              <div className="text-2xl font-bold text-blue-500">150M+</div>
               <div className="text-sm text-muted-foreground">Yandex Daily Users</div>
               <div className="text-xs text-blue-600 mt-1">🇷🇺 Click to visit Yandex</div>
             </div>
