@@ -1,0 +1,20 @@
+{
+  "name": "salem-cyber-vault-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Salem Cyber Vault - Cybersecurity Monitoring Dashboard",
+  "keywords": ["cybersecurity", "dashboard", "nextjs", "vercel"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salem-cyber-vault/isolationbox.git"
+  },
+  "scripts": {
+    "build": "cd cybersecurity-dashboard-2 && pnpm install && pnpm run build",
+    "dev": "cd cybersecurity-dashboard-2 && pnpm run dev",
+    "start": "cd cybersecurity-dashboard-2 && pnpm run start",
+    "lint": "cd cybersecurity-dashboard-2 && pnpm run lint"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}

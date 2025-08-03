@@ -1,0 +1,28 @@
+# Vercel ignore - files and directories that should not be deployed
+
+# Development files
+cybersecurity-dashboard-2/node_modules
+cybersecurity-dashboard-2/.next
+cybersecurity-dashboard-2/.env.local
+cybersecurity-dashboard-2/.env.development.local
+cybersecurity-dashboard-2/.env.test.local
+cybersecurity-dashboard-2/.env.production.local
+
+# IDE and system files
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage
+
+# Temporary files
+tmp
+temp
