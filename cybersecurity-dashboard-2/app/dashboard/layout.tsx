@@ -5,7 +5,7 @@ import { UserNav } from "@/components/user-nav"
 import { ModeToggle } from "@/components/mode-toggle"
 import { AlertsButton } from "@/components/alerts-button"
 import { Search } from "@/components/search"
-import { Shield } from "lucide-react"
+import { SalemVaultIcon } from "@/components/salem-vault-icon"
 import { Suspense } from "react"
 
 export default function DashboardLayout({
@@ -23,7 +23,7 @@ export default function DashboardLayout({
         {/* Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-2 font-semibold text-lg text-blue-500">
-            <Shield className="h-6 w-6" />
+            <SalemVaultIcon className="h-6 w-6" size={24} />
             <span>Salem Cyber Vault</span>
           </div>
 
