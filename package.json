@@ -1,5 +1,7 @@
 {
   "name": "salem-cyber-vault",
+  "description": "Comprehensive cybersecurity playground with interactive learning, threat monitoring, and hands-on security tools",
+  "keywords": ["cybersecurity", "education", "threat-monitoring", "osint", "security-tools", "interactive-learning"],
   "version": "0.1.0",
   "private": true,
   "scripts": {

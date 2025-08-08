@@ -1,0 +1,158 @@
+"use client"
+
+import { Progress } from "@/components/ui/progress"
+import { Badge } from "@/components/ui/badge"
+
+interface ProgressTrackerProps {
+  gameType: 'quiz' | 'phishing' | 'challenges'
+}
+
+const PROGRESS_DATA = {
+  quiz: {
+    totalQuestions: 150,
+    answered: 89,
+    correct: 73,
+    accuracy: 82,
+    level: 8,
+    xp: 1450,
+    nextLevelXp: 1800
+  },
+  phishing: {
+    totalExamples: 75,
+    analyzed: 45,
+    correctIdentifications: 39,
+    accuracy: 87,
+    level: 6,
+    xp: 890,
+    nextLevelXp: 1200
+  },
+  challenges: {
+    totalChallenges: 50,
+    completed: 12,
+    points: 2450,
+    accuracy: 75,
+    level: 5,
+    xp: 650,
+    nextLevelXp: 900
+  }
+}
+
+export function ProgressTracker({ gameType }: ProgressTrackerProps) {
+  const data = PROGRESS_DATA[gameType]
+  
+  const progressPercentage = gameType === 'quiz' 
+    ? (data.answered / data.totalQuestions) * 100
+    : gameType === 'phishing'
+    ? (data.analyzed / data.totalExamples) * 100
+    : (data.completed / data.totalChallenges) * 100
+
+  const xpProgress = (data.xp / data.nextLevelXp) * 100
+
+  const getGameTypeTitle = (type: string) => {
+    switch (type) {
+      case 'quiz': return 'Quiz Progress'
+      case 'phishing': return 'Phishing Detection'
+      case 'challenges': return 'Security Challenges'
+      default: return 'Progress'
+    }
+  }
+
+  const getAccuracyColor = (accuracy: number) => {
+    if (accuracy >= 80) return 'text-green-500'
+    if (accuracy >= 60) return 'text-yellow-500'
+    return 'text-red-500'
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Level and XP */}
+      <div className="text-center">
+        <div className="text-2xl font-bold">Level {data.level}</div>
+        <div className="text-sm text-muted-foreground">
+          {data.xp} / {data.nextLevelXp} XP
+        </div>
+        <Progress value={xpProgress} className="mt-2" />
+      </div>
+
+      {/* Statistics */}
+      <div className="space-y-3">
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-muted-foreground">Progress</span>
+          <span className="font-medium">{progressPercentage.toFixed(0)}%</span>
+        </div>
+        <Progress value={progressPercentage} />
+        
+        <div className="flex justify-between items-center">
+          <span className="text-sm text-muted-foreground">Accuracy</span>
+          <span className={`font-medium ${getAccuracyColor(data.accuracy)}`}>
+            {data.accuracy}%
+          </span>
+        </div>
+        
+        {gameType === 'quiz' && (
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-muted-foreground">Questions Answered</span>
+            <span className="font-medium">{data.answered} / {data.totalQuestions}</span>
+          </div>
+        )}
+        
+        {gameType === 'phishing' && (
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-muted-foreground">Correct Identifications</span>
+            <span className="font-medium">{data.correctIdentifications} / {data.analyzed}</span>
+          </div>
+        )}
+        
+        {gameType === 'challenges' && (
+          <>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-muted-foreground">Challenges Completed</span>
+              <span className="font-medium">{data.completed} / {data.totalChallenges}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-muted-foreground">Total Points</span>
+              <span className="font-medium">{data.points.toLocaleString()}</span>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Achievements */}
+      <div className="space-y-2">
+        <div className="text-sm font-medium">Recent Achievements</div>
+        <div className="space-y-1">
+          {gameType === 'quiz' && (
+            <>
+              <Badge variant="secondary" className="w-full justify-start">
+                🧠 Quiz Master - Answered 50 questions correctly
+              </Badge>
+              <Badge variant="secondary" className="w-full justify-start">
+                🎯 Sharp Shooter - 90% accuracy streak
+              </Badge>
+            </>
+          )}
+          {gameType === 'phishing' && (
+            <>
+              <Badge variant="secondary" className="w-full justify-start">
+                🎣 Phish Finder - Detected 25 phishing attempts
+              </Badge>
+              <Badge variant="secondary" className="w-full justify-start">
+                🛡️ Digital Guardian - Perfect week
+              </Badge>
+            </>
+          )}
+          {gameType === 'challenges' && (
+            <>
+              <Badge variant="secondary" className="w-full justify-start">
+                💻 Code Breaker - Completed cryptography challenge
+              </Badge>
+              <Badge variant="secondary" className="w-full justify-start">
+                🔍 Detective - Found all hidden vulnerabilities
+              </Badge>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
