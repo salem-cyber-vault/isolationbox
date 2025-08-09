@@ -4,7 +4,7 @@ import type React from "react"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { AlertTriangle, BarChart3, Bell, FileText, Globe, Home, Settings, Shield, Users, Search } from "lucide-react"
+import { AlertTriangle, BarChart3, Bell, FileText, Globe, Home, Settings, Shield, Users, Search, Gamepad2, Target, BookOpen, Bot, User, Zap } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -23,54 +23,56 @@ const items: NavItem[] = [
     icon: Home,
   },
   {
-    title: "Cyber Search",
-    href: "/dashboard/cyber-search",
+    title: "Attack Simulation",
+    href: "/attack-lab",
+    icon: Target,
+    label: "Live",
+  },
+  {
+    title: "Security Games",
+    href: "/games",
+    icon: Gamepad2,
+    label: "Play",
+  },
+  {
+    title: "OSINT Tools",
+    href: "/osint",
     icon: Search,
     label: "New",
   },
   {
-    title: "Alerts",
-    href: "/dashboard/alerts",
-    icon: Bell,
-    label: "12",
+    title: "Project Explorer",
+    href: "/projects",
+    icon: BookOpen,
   },
   {
-    title: "Threats",
-    href: "/dashboard/threats",
+    title: "AI Mentor",
+    href: "/mentor",
+    icon: Bot,
+    label: "24/7",
+  },
+  {
+    title: "Your Profile",
+    href: "/profile",
+    icon: User,
+  },
+  {
+    title: "Cyber Search",
+    href: "/dashboard/cyber-search",
+    icon: Zap,
+    label: "Pro",
+  },
+  {
+    title: "Threat Map",
+    href: "/dashboard",
     icon: AlertTriangle,
     label: "3",
-  },
-  {
-    title: "Analytics",
-    href: "/dashboard/analytics",
-    icon: BarChart3,
-  },
-  {
-    title: "Vulnerabilities",
-    href: "/dashboard/vulnerabilities",
-    icon: Shield,
-    label: "5",
-  },
-  {
-    title: "Reports",
-    href: "/dashboard/reports",
-    icon: FileText,
-  },
-  {
-    title: "Users",
-    href: "/dashboard/users",
-    icon: Users,
   },
   {
     title: "Domain Intel",
     href: "/dashboard/domain-intel",
     icon: Globe,
-    label: "New",
-  },
-  {
-    title: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
+    label: "Intel",
   },
 ]
 
