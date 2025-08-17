@@ -322,11 +322,13 @@ export function SearchResults() {
                                 {result.ip}
                               </span>
                               <Copy className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-orange-500" />
-                              <ExternalLink
-                                className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-blue-500"
-                                onClick={() => openExternalLink(result.webInterface)}
+                              <span
+                                className="inline-flex"
                                 title="Visit the actual website"
-                              />
+                                onClick={() => openExternalLink(result.webInterface)}
+                              >
+                                <ExternalLink className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-blue-500" />
+                              </span>
                             </div>
                             <div
                               className="text-xs text-muted-foreground cursor-pointer hover:text-blue-500"
@@ -343,15 +345,17 @@ export function SearchResults() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <MapPin
-                            className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-green-500"
+                          <span
+                            className="inline-flex"
+                            title="View location on Google Maps"
                             onClick={() =>
                               openExternalLink(
                                 `https://www.google.com/maps?q=${result.geolocation.lat},${result.geolocation.lng}`,
                               )
                             }
-                            title="View location on Google Maps"
-                          />
+                          >
+                            <MapPin className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-green-500" />
+                          </span>
                           <div>
                             <div className="text-sm cursor-pointer hover:text-blue-500">
                               {result.city}, {result.country}
