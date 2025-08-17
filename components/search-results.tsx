@@ -195,6 +195,24 @@ const realResults = [
   },
 ]
 
+/**
+ * Renders an interactive, client-side table of real internet devices and websites with export and deep-analysis tools.
+ *
+ * The component displays a list of pre-populated results and provides:
+ * - Beginner Mode toggle to show/hide short explanations.
+ * - Sorting control (UI-only; state updates but results are not re-ordered here).
+ * - CSV download of visible results.
+ * - Per-row quick actions (copy IP/hostname/org, open external links, open maps).
+ * - A "Deep Analysis" dialog with tabbed views: Simple, Technical, Security, Network, Russian Tools, and Global Tools.
+ * - Conditional SSL details (renders certificate info when available; shows a warning when absent).
+ *
+ * Side effects:
+ * - Copies text to the clipboard via navigator.clipboard.writeText.
+ * - Opens external URLs in a new tab/window via window.open.
+ * - Creates and triggers a Blob URL for CSV file download.
+ *
+ * @returns JSX element containing the search results UI.
+ */
 export function SearchResults() {
   const [selectedResult, setSelectedResult] = useState(null)
   const [sortBy, setSortBy] = useState("riskScore")
