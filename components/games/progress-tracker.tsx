@@ -38,14 +38,17 @@ const PROGRESS_DATA = {
 }
 
 export function ProgressTracker({ gameType }: ProgressTrackerProps) {
-  const data = PROGRESS_DATA[gameType]
+    const data = PROGRESS_DATA[gameType]
   
-  const progressPercentage = gameType === 'quiz' 
-    ? (data.answered / data.totalQuestions) * 100
-    : gameType === 'phishing'
-    ? (data.analyzed / data.totalExamples) * 100
-    : (data.completed / data.totalChallenges) * 100
-
+  let progressPercentage = 0
+  if (gameType === 'quiz' && 'answered' in data) {
+    progressPercentage = (data.answered / data.totalQuestions) * 100
+  } else if (gameType === 'phishing' && 'analyzed' in data) {
+    progressPercentage = (data.analyzed / data.totalExamples) * 100
+  } else if ('completed' in data) {
+    progressPercentage = (data.completed / data.totalChallenges) * 100
+  }
+ 
   const xpProgress = (data.xp / data.nextLevelXp) * 100
 
   const getGameTypeTitle = (type: string) => {
@@ -89,21 +92,21 @@ export function ProgressTracker({ gameType }: ProgressTrackerProps) {
           </span>
         </div>
         
-        {gameType === 'quiz' && (
+        {gameType === 'quiz' && 'answered' in data && (
           <div className="flex justify-between items-center">
             <span className="text-sm text-muted-foreground">Questions Answered</span>
             <span className="font-medium">{data.answered} / {data.totalQuestions}</span>
           </div>
         )}
         
-        {gameType === 'phishing' && (
+        {gameType === 'phishing' && 'correctIdentifications' in data && (
           <div className="flex justify-between items-center">
             <span className="text-sm text-muted-foreground">Correct Identifications</span>
             <span className="font-medium">{data.correctIdentifications} / {data.analyzed}</span>
           </div>
         )}
         
-        {gameType === 'challenges' && (
+        {gameType === 'challenges' && 'completed' in data && (
           <>
             <div className="flex justify-between items-center">
               <span className="text-sm text-muted-foreground">Challenges Completed</span>

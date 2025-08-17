@@ -266,7 +266,6 @@ function AttackLine({ attack, onClick }: AttackLineProps) {
         times: [0, 0.1, 0.9, 1],
       }}
       onClick={onClick}
-      title={`${attack.type} attack - Click for details`}
     />
   )
 }
