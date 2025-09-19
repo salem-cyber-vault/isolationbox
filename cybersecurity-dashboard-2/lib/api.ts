@@ -406,75 +406,152 @@ const mockAlerts: Alert[] = [
 // ============================================================================
 
 /**
- * Simulates network delay for realistic API behavior
- */
-const simulateNetworkDelay = (): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 500))
-}
-
-/**
- * Fetches threat intelligence data
- * In production, this would call: GET /api/v1/threats
+ * Fetches threat intelligence data from edge function API
  */
 export async function fetchThreats(): Promise<Threat[]> {
-  await simulateNetworkDelay()
-  
-  // TODO: Replace with real API call
-  // return fetch('/api/v1/threats').then(res => res.json())
-  
-  return mockThreats
+  try {
+    const response = await fetch('/api/v1/threats')
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result = await response.json()
+    
+    if (!result.success) {
+      throw new Error(result.message || 'Failed to fetch threats')
+    }
+    
+    return result.data
+  } catch (error) {
+    console.error('Error fetching threats:', error)
+    // Fallback to mock data if API fails
+    return mockThreats
+  }
 }
 
 /**
- * Fetches vulnerability data
- * In production, this would call: GET /api/v1/vulnerabilities
+ * Fetches vulnerability data from edge function API
  */
 export async function fetchVulnerabilities(): Promise<Vulnerability[]> {
-  await simulateNetworkDelay()
-  
-  // TODO: Replace with real API call
-  // return fetch('/api/v1/vulnerabilities').then(res => res.json())
-  
-  return mockVulnerabilities
+  try {
+    const response = await fetch('/api/v1/vulnerabilities')
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result = await response.json()
+    
+    if (!result.success) {
+      throw new Error(result.message || 'Failed to fetch vulnerabilities')
+    }
+    
+    return result.data
+  } catch (error) {
+    console.error('Error fetching vulnerabilities:', error)
+    // Fallback to mock data if API fails
+    return mockVulnerabilities
+  }
 }
 
 /**
- * Fetches threat trends data
- * In production, this would call: GET /api/v1/threat-trends
+ * Fetches threat trends data from edge function API
  */
 export async function fetchThreatTrends(): Promise<ThreatTrend[]> {
-  await simulateNetworkDelay()
-  
-  // TODO: Replace with real API call
-  // return fetch('/api/v1/threat-trends').then(res => res.json())
-  
-  return mockThreatTrends
+  try {
+    const response = await fetch('/api/v1/threat-trends')
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result = await response.json()
+    
+    if (!result.success) {
+      throw new Error(result.message || 'Failed to fetch threat trends')
+    }
+    
+    return result.data
+  } catch (error) {
+    console.error('Error fetching threat trends:', error)
+    // Fallback to mock data if API fails
+    return mockThreatTrends
+  }
 }
 
 /**
- * Fetches recent security events
- * In production, this would call: GET /api/v1/events
+ * Fetches recent security events from edge function API
  */
 export async function fetchEvents(): Promise<SecurityEvent[]> {
-  await simulateNetworkDelay()
-  
-  // TODO: Replace with real API call
-  // return fetch('/api/v1/events').then(res => res.json())
-  
-  return mockEvents
+  try {
+    const response = await fetch('/api/v1/events')
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result = await response.json()
+    
+    if (!result.success) {
+      throw new Error(result.message || 'Failed to fetch events')
+    }
+    
+    // Add icon components to the events (since they can't be serialized through JSON)
+    const events = result.data.map((event: any) => ({
+      ...event,
+      icon: getIconForEventType(event.type)
+    }))
+    
+    return events
+  } catch (error) {
+    console.error('Error fetching events:', error)
+    // Fallback to mock data if API fails
+    return mockEvents
+  }
 }
 
 /**
- * Fetches security alerts
- * In production, this would call: GET /api/v1/alerts
+ * Helper function to get the appropriate icon for an event type
+ */
+function getIconForEventType(type: string) {
+  switch (type) {
+    case 'alert':
+      return AlertTriangle
+    case 'info':
+      return Info
+    case 'warning':
+      return ShieldAlert
+    case 'success':
+      return CheckCircle
+    default:
+      return Info
+  }
+}
+
+/**
+ * Fetches security alerts from edge function API
  */
 export async function fetchAlerts(): Promise<Alert[]> {
-  await simulateNetworkDelay()
-  
-  // TODO: Replace with real API call
-  // return fetch('/api/v1/alerts').then(res => res.json())
-  
-  return mockAlerts
+  try {
+    const response = await fetch('/api/v1/alerts')
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result = await response.json()
+    
+    if (!result.success) {
+      throw new Error(result.message || 'Failed to fetch alerts')
+    }
+    
+    return result.data
+  } catch (error) {
+    console.error('Error fetching alerts:', error)
+    // Fallback to mock data if API fails
+    return mockAlerts
+  }
 }
 
 // ============================================================================

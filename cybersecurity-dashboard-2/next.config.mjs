@@ -9,6 +9,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Optimize for serverless deployments
+  output: 'standalone',
 }
 
 export default nextConfig
