@@ -322,11 +322,12 @@ export function SearchResults() {
                                 {result.ip}
                               </span>
                               <Copy className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-orange-500" />
-                              <ExternalLink
-                                className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-blue-500"
-                                onClick={() => openExternalLink(result.webInterface)}
-                                title="Visit the actual website"
-                              />
+                              <span title="Visit the actual website">
+                                <ExternalLink
+                                  className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-blue-500"
+                                  onClick={() => openExternalLink(result.webInterface)}
+                                />
+                              </span>
                             </div>
                             <div
                               className="text-xs text-muted-foreground cursor-pointer hover:text-blue-500"
@@ -343,15 +344,16 @@ export function SearchResults() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <MapPin
-                            className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-green-500"
-                            onClick={() =>
-                              openExternalLink(
-                                `https://www.google.com/maps?q=${result.geolocation.lat},${result.geolocation.lng}`,
-                              )
-                            }
-                            title="View location on Google Maps"
-                          />
+                          <span title="View location on Google Maps">
+                            <MapPin
+                              className="h-3 w-3 text-muted-foreground cursor-pointer hover:text-green-500"
+                              onClick={() =>
+                                openExternalLink(
+                                  `https://www.google.com/maps?q=${result.geolocation.lat},${result.geolocation.lng}`,
+                                )
+                              }
+                            />
+                          </span>
                           <div>
                             <div className="text-sm cursor-pointer hover:text-blue-500">
                               {result.city}, {result.country}
