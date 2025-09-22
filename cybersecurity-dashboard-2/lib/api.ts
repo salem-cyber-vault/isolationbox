@@ -51,7 +51,6 @@ export interface SecurityEvent {
   iconColor: string
   details: {
     severity: string
-    [key: string]: any
     learnMore: string
     mitreAttack: string
     nistGuide: string
