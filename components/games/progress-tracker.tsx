@@ -38,14 +38,22 @@ const PROGRESS_DATA = {
 }
 
 /**
- * Render a progress summary and recent achievements for the given game type.
+ * Renders a progress dashboard for the specified game type.
  *
  * Displays level, XP progress, overall progress percentage, accuracy (with color coding),
- * and type-specific statistics and badges for 'quiz', 'phishing', or 'challenges'.
- * Progress and per-type rows are rendered only when the corresponding data fields exist.
+ * and additional game-type-specific statistics and recent achievements for:
+ * - "quiz" (questions answered / total),
+ * - "phishing" (examples analyzed / total and correct identifications),
+ * - "challenges" (completed / total and total points).
  *
- * @param gameType - One of 'quiz', 'phishing', or 'challenges' determining which dataset and UI rows to show.
- * @returns A React element containing the progress tracker UI.
+ * Progress is computed from the relevant fields in the underlying data:
+ * - quiz: answered / totalQuestions
+ * - phishing: analyzed / totalExamples
+ * - challenges: completed / totalChallenges
+ * XP progress is computed as xp / nextLevelXp. If an expected field is missing, progress defaults to 0.
+ *
+ * @param gameType - One of "quiz", "phishing", or "challenges" selecting which dataset and UI to render.
+ * @returns A React element containing the formatted progress tracker UI.
  */
 export function ProgressTracker({ gameType }: ProgressTrackerProps) {
     const data = PROGRESS_DATA[gameType]
